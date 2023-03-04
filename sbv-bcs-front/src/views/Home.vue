@@ -169,17 +169,24 @@
   export default {
     name:'home',
     data() {
-      const item = {
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      };
       return {
-        tableData: Array(12).fill(item),
+        tableData: [],
+        total:0,
+        pageNum:1,
+        pageSize:2,
+        username:"",
+
         collapseBtnClass:'el-icon-s-fold',
         isCollapse:false,
         sideWidth:200,
       }
+    },
+    created(){
+
+      fetch("http://localhost:9090/user/page?pageNum=1&pageSize=2&username=gougou").then(res=>res.json().then(res=>{
+        console.log(res)
+        this.tableData=res.data
+      }))
     },
     methods:{
       //侧边栏展开缩放
